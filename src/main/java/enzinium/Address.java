@@ -11,23 +11,26 @@ public class Address {
 
     public Address() {}
 
+    public void setPK(PublicKey pKey) {
+        this.PK = pKey;
+    }
+
     public PublicKey getPK() {
         return this.PK;
+    }
+
+    public void setSK(PrivateKey sKey) {
+        this.SK = sKey;
     }
 
     public PrivateKey getSK() {
         return this.SK;
     }
 
-    static KeyPair generateKeyPair() {
+    public void generateKeyPair() {
         KeyPair pair = GenSig.generateKeyPair();
-        pair.getPrivate();
-
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder string = new StringBuilder();
+        this.setPK(pair.getPublic());
+        this.setSK(pair.getPrivate());
 
     }
 

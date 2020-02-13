@@ -1,15 +1,16 @@
 package enzinium;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class AddressTest {
 
     @Test
-    public void AddressKeyPair() {
+    public void generateKeyPair() {
         Address rick = new Address();
-        assertTrue(rick.getPK() != null);
-        assertTrue(rick.getSK() != null);
+        rick.generateKeyPair();
+        assertNotNull(rick.getPK());
+        assertNotNull(rick.getSK());
     }
 
     @Test
