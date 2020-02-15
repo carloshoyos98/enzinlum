@@ -8,9 +8,10 @@ public class Address {
 
     private PublicKey PK = null;
     private PrivateKey SK = null;
+    private double balance = 0.0d;
 
     public Address() {}
-
+    //Getters y setters
     public void setPK(PublicKey pKey) {
         this.PK = pKey;
     }
@@ -27,6 +28,13 @@ public class Address {
         return this.SK;
     }
 
+    public double getBalance() {
+        return this.balance;
+    }
+
+
+    //métodos de la clase
+
     public void generateKeyPair() {
         KeyPair pair = GenSig.generateKeyPair();
         this.setPK(pair.getPublic());
@@ -34,4 +42,10 @@ public class Address {
 
     }
 
+    @Override
+    public String toString() {
+        return
+                "PK = " + getPK().hashCode() + '\n' +
+                "Balance = " + getBalance();
+    }
 }

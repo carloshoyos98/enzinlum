@@ -15,6 +15,9 @@ public class AddressTest {
 
     @Test
     public void AddressToString() {
+        Address reck = new Address();
+        assertEquals("PK = " + reck.getPK() + '\n' +
+                "Balance = " + reck.getBalance(), reck.toString());
 
     }
 }
