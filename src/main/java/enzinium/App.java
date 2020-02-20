@@ -95,5 +95,107 @@
                     "=========================="        );
             System.out.println(ricknillos.toString());
 
+            /**
+             * El contrato TokenContract contiene una tabla de balances
+             * de token por propietario:
+             * mapping(propietario => numero de unidades que posee)
+             * Permite al contrato llevar el seguimiento de quien
+             * posee las entradas.
+             * Cada transferencia de entradas entre propietarios es
+             * una deducción en un balance y una adicion en el otro.
+             *
+             * Crea una tabla "balances" que mapee cada propietario
+             * (su Public Key) al numero de tokens que posee.
+             * Añade a Rick con sus 100 entradas.
+             * Asegurate de que si el propietario (su Public Key)
+             * ya existe en la tabla, sus unidades no se actualicen.
+             *
+             * addOwner()
+             * añade el propietario inicial de todos los tokens de este contrato
+             * @param PublicKey del propietario
+             * @param cantidad de tokens que posee
+             */
+
+            ricknillos.addOwner(rick.getPK(), ricknillos.getTotalSupply());
+            // verifica que Rick no se actualiza una vez que ya existe en el balance
+            ricknillos.addOwner(rick.getPK(), 500d);
+
+            /**
+             * Consulta los balances
+             *
+             * numOwners()
+             * @return numero de propietarios registrados en la tabla balances
+             *
+             * balanceOf()
+             * @param PublicKey del propietario
+             * @return cantidad de tokens que posee
+             * Dada una direccion, devuelve su balance de tokens. Si no existe
+             * el propietario, devuelve cero.
+             */
+            System.out.println("\n" + "Consulta de balances" + "\n" +
+                    "===================="        );
+
+            System.out.println("\n" + "Numero de propietarios: " + ricknillos.numOwners());
+
+            System.out.println("Entradas de Rick: "
+                    + ricknillos.balanceOf(rick.getPK())
+                    + " "
+                    + ricknillos.getSymbol());
+
+            System.out.println("Entradas de Morty: "
+                    + ricknillos.balanceOf(morty.getPK())
+                    + " "
+                    + ricknillos.getSymbol());
+
+            /**
+             * Morty quiere comprarle 2 entradas a Rick
+             *
+             * transfer()
+             * @param PublicKey del destinatario
+             * @param cantidad de tokens
+             * Dada una direccion y una cantidad, transfiere esa cantidad
+             * de tokens a esa direccion, desde el balance de la direccion
+             * propietaria del contrato (la de Rick en este caso).
+             *
+             * LLama a la funcion require() para comprobar si el propietario
+             * del contrato dispone de suficientes tokens. Si no hay suficientes,
+             * falla silenciosamente (no hace nada) y no modifica los balances.
+             *
+             * require()
+             * @param una condicion que ha de verificarse (ser cierta)
+             * Lanza una EXCEPCION si no se cumple la condicion
+             */
+
+            System.out.println("\n" + "Transferencia de entradas" + "\n" +
+                    "========================="        );
+
+            ricknillos.transfer(morty.getPK(), 2d);
+
+            System.out.println("Entradas de Rick: "
+                    + ricknillos.balanceOf(rick.getPK())
+                    + " "
+                    + ricknillos.getSymbol());
+
+            System.out.println("Entradas de Morty: "
+                    + ricknillos.balanceOf(morty.getPK())
+                    + " "
+                    + ricknillos.getSymbol());
+
+            // verifica que require falla si no hay tokens suficientes en el balance de Rick
+            ricknillos.transfer(morty.getPK(), 300d);
+
+            System.out.println("Rick no tiene 300 entradas => entradas de Morty: "
+                    + ricknillos.balanceOf(morty.getPK())
+                    + " "
+                    + ricknillos.getSymbol());
+
+            // Morty vuelve a comprar un par de entradas mas
+            ricknillos.transfer(morty.getPK(), 2d);
+
+            System.out.println("2 entradas mas para Morty: "
+                    + ricknillos.balanceOf(morty.getPK())
+                    + " "
+                    + ricknillos.getSymbol());
+
         }
     }
