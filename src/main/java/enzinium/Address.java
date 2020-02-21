@@ -48,4 +48,8 @@ public class Address {
                 "PK = " + getPK().hashCode() + '\n' +
                 "Balance = " + getBalance();
     }
+
+    public void transferEZI(double cantidad) {
+        this.balance += cantidad;
+    }
 }
