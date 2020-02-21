@@ -109,4 +109,25 @@ public class TokenContractTest {
         ricknillos.transfer(morty.getPK(), 600d);
         assertEquals(5d, ricknillos.balanceOf(morty.getPK()), 0d);
     }
+
+    @Test
+    public void transferReventaTest() {
+        rick = new Address();
+        rick.generateKeyPair();
+        ricknillos = new TokenContract(rick);
+        ricknillos.addOwner(rick.getPK(), 100d);
+
+        ricknillos.setTokenPrice(5d);
+
+        morty = new Address();
+        morty.generateKeyPair();
+
+        Address jen = new Address();
+        jen.generateKeyPair();
+        //Transfer a morty para que pueda tener tokens suficientes
+        ricknillos.transfer(morty.getPK(), 5d);
+
+        ricknillos.transfer(morty.getPK(), jen.getPK(), 1d);
+        assertEquals(1d, ricknillos.balanceOf(jen.getPK()), 0d);
+    }
 }

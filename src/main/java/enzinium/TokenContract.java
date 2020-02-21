@@ -68,7 +68,7 @@ public class TokenContract {
         StringBuilder contractRep = new StringBuilder();
         contractRep.append("Name = " + this.getName() +'\n');
         contractRep.append("Symbol = " + this.getSymbol() + '\n');
-        contractRep.append("Total supply = " + this.getTotalSupply() + '\n');
+        contractRep.append("Total supply = " + (int) this.getTotalSupply() + '\n');
         contractRep.append("Owner PK = " + this.getOwnerPK());
         return contractRep.toString();
     }
@@ -102,6 +102,18 @@ public class TokenContract {
             this.getBalances().put(destiny_PK, balanceOf(destiny_PK) + units);
         } catch (Exception e) {
             //no hace nada
+        }
+    }
+
+    public void transfer(PublicKey sender, PublicKey receiver, double units) {
+        try {
+            require(balanceOf(sender) >= units);
+            //coge los tokens que marca units y los resta del balance del sender
+            this.getBalances().put(sender, balanceOf(sender) - units);
+            //coge los tokens que marca units y los suma al balance del receiver
+            this.getBalances().put(receiver, balanceOf(receiver) + units);
+        } catch (Exception e) {
+            //nada
         }
     }
 }

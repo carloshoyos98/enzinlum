@@ -197,5 +197,33 @@
                     + " "
                     + ricknillos.getSymbol());
 
+            /**
+             * A veces, hay reventa ;)
+             *
+             * Morty le vende 1 entrada a Jen.
+             *
+             * Dado un remitente, un destinatario, y una cantidad,
+             * se transfieren tokens de una direccion a la otra.
+             *
+             * transfer()
+             * @param sender PK
+             * @param recipient PK
+             * @param cantidad de tokens
+             */
+
+            System.out.println("\n" + "Reventa de entradas" + "\n" +
+                    "==================="        );
+
+            ricknillos.transfer(morty.getPK(), jen.getPK(), 1d);
+
+            System.out.println("Entradas de Morty: "
+                    + ricknillos.balanceOf(morty.getPK())
+                    + " "
+                    + ricknillos.getSymbol());
+            System.out.println("Entradas de Jen: "
+                    + ricknillos.balanceOf(jen.getPK())
+                    + " "
+                    + ricknillos.getSymbol());
+
         }
     }
