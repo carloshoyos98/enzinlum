@@ -85,12 +85,21 @@ public class TokenContract {
         return this.getBalances().getOrDefault(ownerPK, 0d);
     }
 
+    /*
+    * El método require() comprueba que hay el
+    * elemento pasado en la condición booleana
+    * */
+    private void require(Boolean hold) throws Exception {
+        if(! hold) {
+            throw new Exception();
+        }
+    }
 
     public void transfer(PublicKey destiny_PK, double units) {
         try {
-            require(balanceOf(getOwnerPK()), >= units);
-            this.getBalances().compute(ownerPK, (pk, tokens))
-
+            require(balanceOf(getOwnerPK()) >= units);
+            this.getBalances().compute(getOwnerPK(), (pk, tokens) -> tokens - units);
+            this.getBalances().put(destiny_PK, balanceOf(destiny_PK) + units);
         } catch (Exception e) {
             //no hace nada
         }
