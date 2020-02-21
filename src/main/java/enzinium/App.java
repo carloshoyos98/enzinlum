@@ -240,5 +240,17 @@
                     "===================="        );
             ricknillos.owners();
 
+            /**
+             * Calcula el numero de asistentes al concierto (excluyendo a Rick),
+             * es decir, el numero de entradas vendidas.
+             *
+             * totalTokensSold()
+             * @return numero de tokens (entradas) vendidos
+             */
+
+            System.out.println("\n" + "Total de asistentes: "
+                    + ricknillos.totalTokensSold() + "\n");
+
+
         }
     }
