@@ -116,4 +116,16 @@ public class TokenContract {
             //nada
         }
     }
+
+    public void owners() {
+        for(PublicKey pk : getBalances().keySet()) {
+            if (pk != this.getOwnerPK()) {
+                System.out.println(
+                        "Owner: " + pk.hashCode() + " "
+                                + getBalances().get(pk) + " "
+                                + this.getSymbol()
+                );
+            }
+        }
+    }
 }
