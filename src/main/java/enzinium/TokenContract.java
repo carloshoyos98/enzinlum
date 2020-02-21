@@ -20,6 +20,10 @@ public class TokenContract {
         this.owner = owner;
     }
 
+    public Address owner() {
+        return this.owner;
+    }
+
     //getters y setters
 
     public String getName() {
@@ -134,5 +138,16 @@ public class TokenContract {
         this.getBalances().forEach((pk, units) -> this.totalTokensSold += units);
         this.totalTokensSold -= balanceOf(getOwnerPK());
         return (int) this.totalTokensSold;
+    }
+
+    void payable(PublicKey comprador, double cantidad) {
+        try {
+            require(cantidad >= this.getTokenPrice());
+            Double units = Math.floor(cantidad / this.tokenPrice);
+            transfer(comprador, units);
+            this.owner().transferEZI(cantidad);
+        } catch (Exception e) {
+            //nada
+        }
     }
 }

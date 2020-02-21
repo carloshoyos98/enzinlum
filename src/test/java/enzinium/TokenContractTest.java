@@ -130,4 +130,38 @@ public class TokenContractTest {
         ricknillos.transfer(morty.getPK(), jen.getPK(), 1d);
         assertEquals(1d, ricknillos.balanceOf(jen.getPK()), 0d);
     }
+
+    @Test
+    public void payableTest() {
+        rick = new Address();
+        rick.generateKeyPair();
+        ricknillos = new TokenContract(rick);
+        ricknillos.addOwner(rick.getPK(), 100d);
+
+        ricknillos.setTokenPrice(5d);
+
+        morty = new Address();
+        morty.generateKeyPair();
+
+        morty.transferEZI(20d);
+        /*
+        Todavía no entiendo este test de David.
+        Tengo que repasarlo bien
+         */
+        // verifico la transferencia de entradas
+        ricknillos.payable(morty.getPK(), morty.getBalance());
+        assertEquals(4d, ricknillos.balanceOf(morty.getPK()), 0d);
+        // verifico la trasnferencia de EZI
+        assertEquals(20d, ricknillos.owner().getBalance(), 0d);
+
+        // sin EZI suficiente
+        ricknillos.payable(morty.getPK(), 4d);
+        assertEquals(4d, ricknillos.balanceOf(morty.getPK()), 0d);
+        assertEquals(20d, ricknillos.owner().getBalance(), 0d);
+
+        // intento de compra de media entrada
+        ricknillos.payable(morty.getPK(), 8d);
+        assertEquals(5d, ricknillos.balanceOf(morty.getPK()), 0d);
+        assertEquals(28d, ricknillos.owner().getBalance(), 0d);
+    }
 }
