@@ -52,4 +52,11 @@ public class Address {
     public void transferEZI(double cantidad) {
         this.balance += cantidad;
     }
+
+    public void send(TokenContract contrato, double enziniums) {
+        if (enziniums <= this.getBalance()) {
+            contrato.payable(this.getPK(), enziniums);
+            this.balance -= enziniums;
+        }
+    }
 }

@@ -315,7 +315,7 @@
              * de esos enZiniums
              */
 
-           // morty.send(ricknillos, 10d);
+            morty.send(ricknillos, 10d);
 
             ricknillos.owners();
             System.out.println("Owner: " + rick.getPK().hashCode() + " "
@@ -331,7 +331,7 @@
             System.out.println(morty.toString());
 
             // verifica que Morty no tiene dinero para comprar una entrada
-           // morty.send(ricknillos, 3d);
+            morty.send(ricknillos, 3d);
 
             System.out.println("Morty no paga suficientes EZI por una entrada" +
                     "\n => sigue teniendo 5 entradas: "
