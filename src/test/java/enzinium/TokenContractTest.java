@@ -1,4 +1,5 @@
 package enzinium;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -7,6 +8,19 @@ public class TokenContractTest {
     public Address rick;
     public TokenContract ricknillos;
     public Address morty;
+
+    @Before
+    public void setUPContractYAddress() {
+        rick = new Address();
+        rick.generateKeyPair();
+        ricknillos = new TokenContract(rick);
+        ricknillos.addOwner(rick.getPK(), 100d);
+
+        ricknillos.setTokenPrice(5d);
+
+        morty = new Address();
+        morty.generateKeyPair();
+    }
     @Test
     public void crearContrato() {
         rick = new Address();
@@ -71,16 +85,7 @@ public class TokenContractTest {
 
     @Test
     public void balanceOfTest() {
-        Address rick = new Address();
-        rick.generateKeyPair();
-        TokenContract ricknillos = new TokenContract(rick);
-        ricknillos.addOwner(rick.getPK(), 100d);
-        assertEquals(1, ricknillos.getBalances().size());
 
-        ricknillos.setTokenPrice(5d);
-
-        Address morty = new Address();
-        morty.generateKeyPair();
         assertEquals(100d, ricknillos.balanceOf(rick.getPK()), 0d);
         // chequeo getOrDefault(PK, 0d) para direcciones que no existen
         assertEquals(0d, ricknillos.balanceOf(morty.getPK()), 0d);
@@ -89,16 +94,6 @@ public class TokenContractTest {
 
     @Test
     public void transferTest() {
-        rick = new Address();
-        rick.generateKeyPair();
-        ricknillos = new TokenContract(rick);
-        ricknillos.addOwner(rick.getPK(), 100d);
-        assertEquals(1, ricknillos.getBalances().size());
-
-        ricknillos.setTokenPrice(5d);
-
-        morty = new Address();
-        morty.generateKeyPair();
 
         ricknillos.transfer(morty.getPK(), 5d);
         assertEquals(5d, ricknillos.balanceOf(morty.getPK()), 0d);
@@ -112,15 +107,6 @@ public class TokenContractTest {
 
     @Test
     public void transferReventaTest() {
-        rick = new Address();
-        rick.generateKeyPair();
-        ricknillos = new TokenContract(rick);
-        ricknillos.addOwner(rick.getPK(), 100d);
-
-        ricknillos.setTokenPrice(5d);
-
-        morty = new Address();
-        morty.generateKeyPair();
 
         Address jen = new Address();
         jen.generateKeyPair();
@@ -133,15 +119,6 @@ public class TokenContractTest {
 
     @Test
     public void payableTest() {
-        rick = new Address();
-        rick.generateKeyPair();
-        ricknillos = new TokenContract(rick);
-        ricknillos.addOwner(rick.getPK(), 100d);
-
-        ricknillos.setTokenPrice(5d);
-
-        morty = new Address();
-        morty.generateKeyPair();
 
         morty.transferEZI(20d);
         /*
